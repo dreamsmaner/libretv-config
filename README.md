@@ -59,7 +59,9 @@ https://raw.githubusercontent.com/dreamsmaner/libretv-config/main/libretv-config
 - 每天的版本都在 git 历史里；需要回滚时，把订阅地址临时指向某个旧 commit 的
   文件即可。
 
-## License
+## 授权说明
 
-本仓库的代码与文档以 [MIT License](LICENSE) 发布；
-视频源数据来自上游 LunaTV-config，其权利归上游维护者所有。
+本仓库为个人自用项目，不开放任何授权：除法律另有规定外，
+未经许可请勿复制、分发或用于其他用途。
+视频源数据来自上游 [LunaTV-config](https://github.com/hafrey1/LunaTV-config)，
+其权利归上游维护者所有；本仓库仅做格式转换，供个人使用。
