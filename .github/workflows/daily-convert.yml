@@ -1,0 +1,35 @@
+name: Daily convert
+
+on:
+  schedule:
+    # 05:30 Asia/Shanghai every day (upstream refreshes its health report ~01:10 CST)
+    - cron: "30 21 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Fetch upstream and convert
+        run: python3 convert.py --output sources.json
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet -- sources.json && [ -z "$(git status --porcelain -- sources.json)" ]; then
+            echo "sources.json unchanged; nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sources.json
+          git commit -m "chore: daily source update [skip ci]"
+          git push
